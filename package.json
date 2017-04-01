@@ -1,0 +1,42 @@
+{
+  "name": "application",
+  "version": "0.0.1",
+  "description": "test application",
+  "main": "index.js",
+  "author": "Evgeniy Azarov",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-eslint": "^7.2.1",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "css-loader": "^0.28.0",
+    "eslint": "^3.18.0",
+    "eslint-plugin-react": "^6.10.3",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.0",
+    "postcss-loader": "^1.3.3",
+    "react-hot-loader": "^1.3.1",
+    "style-loader": "^0.16.1",
+    "uglify-js": "^2.8.20",
+    "uglifyjs-webpack-plugin": "^0.4.0",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.3.2",
+    "webpack-dev-server": "^2.4.2"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "babel-runtime": "^6.23.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --progress --inline --hot",
+    "dev": "SET NODE_ENV=development && npm run start",
+    "prod": "SET NODE_ENV=production && webpack",
+    "lint": "eslint ./src"
+  }
+}
