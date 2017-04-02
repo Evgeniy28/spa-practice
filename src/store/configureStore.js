@@ -1,4 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
+
+import { DevTools } from '../utils/index';
+
 import rootReducer from '../reducers';
 
 function _applyMiddleware() {
@@ -11,7 +14,8 @@ function _applyMiddleware() {
 
 export default function configureStore(initialState) {
     const store = compose(
-        _applyMiddleware()
+        _applyMiddleware(),
+        DevTools.instrument()
     )(createStore)(rootReducer, initialState);
 
     return store;
