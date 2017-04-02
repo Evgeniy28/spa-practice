@@ -4,6 +4,7 @@ import { Route, IndexRoute } from 'react-router';
 import App from './App';
 import { HomePage, HomeRoutes } from './pages/home/index';
 import { ContactRoutes } from './pages/contact/index';
+import ErrorPage from './pages/error/index';
 
 export default (
     <Route path={ App.path } component={ App } >
@@ -11,5 +12,7 @@ export default (
 
         { HomeRoutes }
         { ContactRoutes }
+
+        <Route path='*' component={ErrorPage} />
     </Route>
 );
