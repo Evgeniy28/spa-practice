@@ -31,7 +31,6 @@ export default class Input extends Component {
         });
 
         const { value } = this.props;
-        console.log('todoname', value);
 
         return (
             <div className={ divClasses }>

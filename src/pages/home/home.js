@@ -1,23 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { bindAll } from 'lodash';
 
 import Input from '../../components/ui/input/index';
+import { addTodo } from './actions';
 
-export default class HomePage extends Component {
+class HomePage extends Component {
     static path = '/';
+    static propTypes = {
+        home: PropTypes.object.isRequired,
+        dispatch: PropTypes.func.isRequired
+    };
 
     constructor(props) {
         super(props);
 
         this.state = {
-            todoName: '',
-            todos: [
-                {
-                    id: 1,
-                    name: 'Todo 1'
-                }
-            ],
-            error: ''
+            todoName: ''
         };
 
         bindAll(this, ['renderTodos', 'inputOnChange', 'addTodo']);
@@ -28,19 +27,11 @@ export default class HomePage extends Component {
     }
 
     addTodo() {
-        if (this.state.todoName === '') {
-            this.setState({ error: 'The field can not be empty!' });
-            return;
-        }
-
-        const id = this.state.todos[this.state.todos.length - 1].id + 1;
+        const { todos } = this.props.home;
+        const id = todos[todos.length - 1].id + 1;
         const name = this.state.todoName;
-
-        const todos = this.state.todos;
-        todos.push({ id, name });
-
-        this.setState({ todos });
-        this.setState({ todoName: '', error: '' });
+        this.props.dispatch( addTodo(id, name) );
+        this.setState({ todoName: '' });
     }
 
     renderTodos(item, index) {
@@ -50,7 +41,8 @@ export default class HomePage extends Component {
     }
 
     render() {
-        const { todoName, todos, error } = this.state;
+        const { todoName } = this.state;
+        const { todos, error } = this.props.home;
 
         return (
             <div className='container'>
@@ -71,3 +63,11 @@ export default class HomePage extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        home: state.home
+    };
+}
+
+export default connect(mapStateToProps)(HomePage);
