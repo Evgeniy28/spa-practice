@@ -46,6 +46,24 @@ module.exports = {
             loader: 'babel'
           }
         ]
+      },
+      {
+        test: /\.scss$/,
+        include: resolve(__dirname, 'src'),
+        use: [
+          {
+            loader: 'style'
+          },
+          {
+            loader: 'css'
+          },
+          {
+            loader: 'postcss'
+          },
+          {
+            loader: 'sass'
+          }
+        ]
       }
     ]
   },

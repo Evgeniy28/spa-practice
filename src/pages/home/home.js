@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindAll } from 'lodash';
+import classnames from 'classnames';
 
 import Input from '../../components/ui/input/index';
-import { addTodo } from './actions';
+import { addTodo, endTodo, deleteTodo } from './actions';
+
+import './style.scss';
 
 class HomePage extends Component {
     static path = '/';
@@ -35,9 +38,29 @@ class HomePage extends Component {
     }
 
     renderTodos(item, index) {
+        const todoClasses = classnames('home-todo__item', {
+            'home-todo__item--disable': item.end
+        });
+
+        const btnClasses = classnames('btn', {
+            'active': item.end
+        });
+
         return (
-            <li key={ index }>{ item.name }</li>
+            <li key={ index } className={ todoClasses }>
+                <span>{ item.name }</span>
+                <button className={ btnClasses } onClick={ this.likeTodo.bind(this, item) }><i className='glyphicon glyphicon-ok' /></button>
+                <button className='btn' onClick={ this.deleteTodo.bind(this, item) }><i className='glyphicon glyphicon-trash' /></button>
+            </li>
         );
+    }
+
+    likeTodo(todo) {
+        this.props.dispatch( endTodo(todo) );
+    }
+
+    deleteTodo(todo) {
+        this.props.dispatch( deleteTodo(todo) );
     }
 
     render() {
@@ -48,7 +71,7 @@ class HomePage extends Component {
             <div className='container'>
                 <div className='row'>
                     <div className='col-xs-12'>
-                        <ul>
+                        <ul className='home-todo'>
                             { todos.map(this.renderTodos) }
                         </ul>
                         <Input

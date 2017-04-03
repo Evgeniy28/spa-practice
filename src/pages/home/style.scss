@@ -1,0 +1,12 @@
+.home-todo {
+  margin: 0;
+  padding: 0;
+}
+
+.home-todo__item {
+  list-style: none;
+
+  &--disable span {
+    color: #d43f3a;
+  }
+}
