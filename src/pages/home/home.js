@@ -3,8 +3,15 @@ import { connect } from 'react-redux';
 import { bindAll } from 'lodash';
 import classnames from 'classnames';
 
+import { LocalStorageManager } from '../../utils/index';
 import Input from '../../components/ui/input/index';
-import { addTodo, endTodo, deleteTodo } from './actions';
+import Loader from '../../components/ui/loader/index';
+import {
+    addTodo,
+    endTodo,
+    deleteTodo,
+    getTodos
+} from './actions';
 
 import './style.scss';
 
@@ -23,6 +30,10 @@ class HomePage extends Component {
         };
 
         bindAll(this, ['renderTodos', 'inputOnChange', 'addTodo']);
+    }
+
+    componentWillMount() {
+        this.props.dispatch( getTodos() );
     }
 
     inputOnChange(value) {
@@ -66,13 +77,16 @@ class HomePage extends Component {
     render() {
         const { todoName } = this.state;
         const { todos, error } = this.props.home;
-
+        LocalStorageManager.set('todos', todos);
         return (
             <div className='container'>
                 <div className='row'>
                     <div className='col-xs-12'>
                         <ul className='home-todo'>
-                            { todos.map(this.renderTodos) }
+                            {
+                                todos.length === 0 ? <Loader /> :
+                                todos.map(this.renderTodos)
+                            }
                         </ul>
                         <Input
                             onChange={ this.inputOnChange }
