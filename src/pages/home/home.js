@@ -30,9 +30,7 @@ class HomePage extends Component {
         };
 
         bindAll(this, ['renderTodos', 'inputOnChange', 'addTodo']);
-    }
 
-    componentWillMount() {
         this.props.dispatch( getTodos() );
     }
 
@@ -41,10 +39,7 @@ class HomePage extends Component {
     }
 
     addTodo() {
-        const { todos } = this.props.home;
-        const id = todos[todos.length - 1].id + 1;
-        const name = this.state.todoName;
-        this.props.dispatch( addTodo(id, name) );
+        this.props.dispatch( addTodo(this.props.home.todos, this.state.todoName) );
         this.setState({ todoName: '' });
     }
 
@@ -76,7 +71,7 @@ class HomePage extends Component {
 
     render() {
         const { todoName } = this.state;
-        const { todos, error } = this.props.home;
+        const { todos, error, isLoading } = this.props.home;
         LocalStorageManager.set('todos', todos);
         return (
             <div className='container'>
@@ -84,8 +79,11 @@ class HomePage extends Component {
                     <div className='col-xs-12'>
                         <ul className='home-todo'>
                             {
-                                todos.length === 0 ? <Loader /> :
-                                todos.map(this.renderTodos)
+                                isLoading
+                                    ? <Loader />
+                                    : todos.length !== 0
+                                        ? todos.map(this.renderTodos)
+                                        : 'No element!'
                             }
                         </ul>
                         <Input

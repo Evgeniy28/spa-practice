@@ -2,7 +2,8 @@ import { ADD_TODO, END_TODO, DELETE_TODO, GET_TODOS } from './actions';
 
 const initialState = {
     todos: [],
-    error: ''
+    error: '',
+    isLoading: true
 };
 
 function homeReducer(state = initialState, action) {
@@ -21,7 +22,7 @@ function homeReducer(state = initialState, action) {
             const filteredTodos = state.todos.filter(todo => todo.id !== action.todo.id);
             return { ...state, todos: filteredTodos };
         case GET_TODOS:
-            return { ...state, todos: action.todos };
+            return { ...state, todos: action.todos, isLoading: false };
 
         default:
             return state;
