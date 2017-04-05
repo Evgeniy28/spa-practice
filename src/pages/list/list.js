@@ -23,6 +23,7 @@ class ListPage extends Component {
                 key={ index }
                 id={ item.id }
                 name={ item.name }
+                youtube={ item.youtube }
             />
         );
     }

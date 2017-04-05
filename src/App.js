@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { DevTools } from './utils/index';
 
 import { Header } from './components/index';
+import { Modal } from './components/modal/index';
 
 export default class App extends Component {
     static propTypes = {
@@ -17,6 +18,8 @@ export default class App extends Component {
                 <Header />
                 { this.props.children }
                 { process.env.NODE_ENV !== 'production' ? <DevTools /> : null }
+
+                <Modal />
             </div>
         );
     }
