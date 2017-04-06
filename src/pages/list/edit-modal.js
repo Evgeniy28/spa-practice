@@ -20,7 +20,11 @@ class EditModal extends Component {
         this.state = {
             id: this.props.id,
             name: this.props.name,
-            youtube: this.props.youtube
+            youtube: this.props.youtube,
+            errors: {
+                name: '',
+                youtube: ''
+            }
         };
 
         bindAll(this, ['close', 'changeName', 'changeLink', 'save']);
@@ -40,6 +44,25 @@ class EditModal extends Component {
 
     save() {
         const { id, name, youtube } = this.state;
+        const errorTitle = 'Field can not be empty!';
+        const errors = {
+            name: '',
+            youtube: ''
+        };
+
+        if (name === '') {
+            errors.name = errorTitle;
+        }
+
+        if (youtube === '') {
+            errors.youtube = errorTitle;
+        }
+
+        if (errors.name || errors.youtube) {
+            this.setState({ errors });
+            return;
+        }
+
         this.props.dispatch( this.props.onSave({ id, name, youtube }) );
         this.close();
     }
@@ -53,10 +76,12 @@ class EditModal extends Component {
                     <Input
                         onChange={ this.changeName }
                         value={ this.state.name }
+                        error={ this.state.errors.name }
                     />
                     <Input
                         onChange={ this.changeLink }
                         value={ this.state.youtube }
+                        error={ this.state.errors.youtube }
                     />
                 </div>
                 <div className='modal-footer'>
