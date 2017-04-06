@@ -34,7 +34,7 @@ class ListPage extends Component {
             <div className='container'>
                 <div className='row'>
                     <div className='col-xs-12'>
-                        <h3>List</h3>
+                        <h3>Lists video</h3>
                         <table className='table table-bordered table-hover'>
                             <thead>
                                 <tr>
