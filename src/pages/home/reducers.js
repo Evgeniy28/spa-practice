@@ -1,4 +1,5 @@
 import { ADD_TODO, END_TODO, DELETE_TODO, GET_TODOS } from './actions';
+import { isEmpty, isObject  } from 'lodash';
 
 const initialState = {
     todos: [],
@@ -9,11 +10,11 @@ const initialState = {
 function homeReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_TODO:
-            const todos = state.todos;
             if (!action.error) {
-                todos.push({ id: action.id, name: action.name, end: false });
+                if (isEmpty(state.todos) && isObject(state.todos)) state.todos = [];
+                state.todos.push({ id: action.id, name: action.name, end: false });
             }
-            return { ...state, error: action.error, todos };
+            return { ...state, error: action.error, todos: state.todos };
         case END_TODO:
             const index = state.todos.findIndex(todo => todo.id === action.todo.id);
             state.todos[index].end = action.end;

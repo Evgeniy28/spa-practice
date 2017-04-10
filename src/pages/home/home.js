@@ -81,7 +81,7 @@ class HomePage extends Component {
                             {
                                 isLoading
                                     ? <Loader />
-                                    : todos.length !== 0
+                                    : todos.length
                                         ? todos.map(this.renderTodos)
                                         : 'No element!'
                             }

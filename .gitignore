@@ -1,5 +1,5 @@
 .idea
 node_modules
-public/bundle.js
+public/assets/bundle.js
 
 npm-debug.log

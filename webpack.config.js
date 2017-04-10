@@ -1,8 +1,10 @@
+const NODE_ENV = process.env.NODE_ENV || 'development';
+
 const webpack = require('webpack');
 const { resolve } = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
   entry: [
@@ -12,17 +14,17 @@ module.exports = {
 
   output: {
     filename: 'bundle.js',
-    path: resolve(__dirname, 'assets/'),
+    path: resolve(__dirname, 'public/assets/'),
     publicPath: '/assets/'
   },
 
-  watch: NODE_ENV == 'development',
+  watch: NODE_ENV === 'development',
 
   watchOptions: {
     aggregateTimeout: 100
   },
 
-  devtool: NODE_ENV == 'development' ? 'cheap-inline-module-source-map' : null,
+  devtool: NODE_ENV === 'development' ? 'cheap-inline-module-source-map' : 'nosources-source-map',
 
   resolve: {
     modules: ['node_modules'],
@@ -87,7 +89,7 @@ module.exports = {
   ]
 };
 
-if (NODE_ENV == 'production') {
+if (NODE_ENV === 'production') {
   module.exports.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress: {
